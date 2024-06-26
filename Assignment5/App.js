@@ -1,20 +1,75 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { Image } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import HomeScreen from './HomeScreen';
+import MyCardsScreen from './MyCardsScreen';
+import StatisticsScreen from './StatisticsScreen';
+import SettingsScreen from './SettingsScreen';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { ThemeProvider } from './ThemeContext';
+import statisticsIcon from './assets/statistics-icon.png';
 
-export default function App() {
+const Tab = createBottomTabNavigator();
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+    <ThemeProvider>
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
+              let iconComponent;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+              if (route.name === 'Home') {
+                iconName = focused ? 'home' : 'home-outline';
+                iconComponent = <Icon name={iconName} size={size} color={color} />;
+              } else if (route.name === 'MyCards') {
+                iconName = focused ? 'credit-card' : 'credit-card-outline';
+                iconComponent = <Icon name={iconName} size={size} color={color} />;
+              } else if (route.name === 'Statistics') {
+                iconComponent = (
+                  <Image
+                    source={statisticsIcon}
+                    style={{ width: size, height: size, tintColor: color }}
+                  />
+                );
+              } else if (route.name === 'Settings') {
+                iconName = focused ? 'cog' : 'cog-outline';
+                iconComponent = <Icon name={iconName} size={size} color={color} />;
+              }
+
+              return iconComponent;
+            },
+            tabBarActiveTintColor: 'blue',
+            tabBarInactiveTintColor: 'gray',
+          })}
+        >
+          <Tab.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{ headerShown: false }} 
+          />
+          <Tab.Screen
+            name="MyCards"
+            component={MyCardsScreen}
+            options={{ headerShown: false }} 
+          />
+          <Tab.Screen
+            name="Statistics"
+            component={StatisticsScreen}
+            options={{ headerShown: false }} 
+          />
+          <Tab.Screen
+            name="Settings"
+            component={SettingsScreen}
+            options={{ headerShown: true }} 
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </ThemeProvider>
+  );
+};
+
+export default App;
