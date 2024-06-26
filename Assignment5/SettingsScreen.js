@@ -1,7 +1,7 @@
 import React from 'react';
-import { Switch, Text } from 'react-native'; // Import Text from react-native
+import { Switch, Text } from 'react-native'; 
 import styled from 'styled-components/native';
-import { useTheme } from './ThemeContext'; // Adjust the import path accordingly
+import { useTheme } from './ThemeContext'; 
 
 const SettingsScreen = () => {
   const { isDarkTheme, toggleTheme } = useTheme();

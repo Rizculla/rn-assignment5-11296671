@@ -2,7 +2,7 @@ import React from 'react';
 import { StatusBar, FlatList } from 'react-native';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { useTheme } from './ThemeContext'; // Adjust the import path accordingly
+import { useTheme } from './ThemeContext'; 
 
 const transactions = [
   { id: '1', title: 'Grocery Shopping', amount: '- $88', category: 'Shopping', image: require('./assets/grocery.png') },
